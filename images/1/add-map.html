@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 90%; margin: 0">
+  <div id="container" style="height: 90%"></div>
+
+  <script type="text/javascript" src="dist/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map -->
+  <!-- <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    var ROOT_PATH = 'https://echarts.apache.org/examples';
+    var option;
+
+    myChart.showLoading();
+$.get('dist/world.json', function (usaJson) {
+  myChart.hideLoading();
+  echarts.registerMap('world', usaJson, {
+    Alaska: {
+      left: -131,
+      top: 25,
+      width: 15
+    },
+    Hawaii: {
+      left: -110,
+      top: 28,
+      width: 5
+    },
+    'Puerto Rico': {
+      left: -76,
+      top: 26,
+      width: 2
+    }
+  });
+  
+option = {
+  baseOption: {
+    timeline: {
+      axisType: 'category',
+      // realtime: false,
+      // loop: false,
+      autoPlay: true,
+      // currentIndex: 2,
+      playInterval: 1000,
+      left: 'center',
+      // controlStyle: {
+      //     position: 'left'
+      // },
+      data: [
+        'February 2020',
+        'March/April 2020',
+        'July 2020',
+        'August 2020',
+        'September 2020',
+        'October 2020',
+        'November/December 2020',
+        'January 2021',
+        'February/March 2021',
+        'April 2021',
+        'May 2021',
+        'June 2021',
+        'July/August 2021',
+        'September 2021',
+        'October 2021',
+        'November/December 2021',
+        'January 2022',
+        'May 2022',
+        'June/July 2022',
+        'August 2022',
+        'September/October 2022'
+      ],
+      // label: {
+      //   formatter: function (s) {
+      //     return new Date(s).getFullYear();
+      //   }
+      // }
+    },
+    title: {
+
+    },
+    
+    // xAxis: [
+    //   {
+    //     type: 'category',
+    //     axisLabel: { interval: 0 },
+    //     date: [],
+    //     splitLine: { show: false }
+    //   }
+    // ],
+    // yAxis: [
+    //   {
+    //     type: 'value',
+    //     name: '',
+    //     max: 53500
+    //   }
+    // ],
+    series: [
+      { name: 'World map', type: 'map' },
+    ],
+    tooltip: {
+        trigger: 'item',
+        showDelay: 0,
+        transitionDuration: 0.2
+      },
+      visualMap: {
+        left: 'right',
+        min: 1000,
+        max: 500000,
+        inRange: {
+          color: [
+            '#313695',
+            '#4575b4',
+            '#74add1',
+            '#abd9e9',
+            '#e0f3f8',
+            '#ffffbf',
+            '#fee090',
+            '#fdae61',
+            '#f46d43',
+            '#d73027',
+            '#a50026'
+          ]
+        },
+        text: ['High', 'Low'],
+        calculable: true
+      },
+      // toolbox: {
+      //   show: true,
+      //   //orient: 'vertical',
+      //   left: 'left',
+      //   top: 'top',
+      //   // feature: {
+      //   //   dataView: { readOnly: false },
+      //   //   restore: {},
+      //   //   saveAsImage: {}
+      //   // }
+      // },
+  },
+  options: [
+    {      
+      title: { text: 'Attentions on COVID-19 in February 2020 ' },
+      series: [
+      {
+          name: 'February 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 31449 },
+            { name: 'United States', value: 2758 },
+            { name: 'Australia', value: 15044 },
+            { name: 'Canada', value: 11116 },
+            { name: 'Singapore', value: 2282 },
+            { name: 'Mexico', value: 8317 },
+            { name: 'Brazil', value: 15024 },
+            { name: 'France', value: 7099 },
+            { name: 'Netherlands', value: 3344 },
+            { name: 'Germany', value: 10225 },
+            { name: 'Finland', value: 216 },
+            { name: 'Norway', value: 652 },
+            { name: 'Sweden', value: 1506 },
+            { name: 'Russia', value: 1365 },
+            { name: 'China', value: 3520 }
+          ]
+        }     
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in March/April 2020 ' },
+      series: [
+        {
+          name: ' March/April 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 192758 },
+            { name: 'United States', value: 14948 },
+            { name: 'Australia', value: 71571 },
+            { name: 'Canada', value: 78889 },
+            { name: 'Singapore', value: 5463 },
+            { name: 'Mexico', value: 44211 },
+            { name: 'Brazil', value: 164194 },
+            { name: 'France', value: 109716 },
+            { name: 'Netherlands', value: 52791 },
+            { name: 'Germany', value: 99611 },
+            { name: 'Finland', value: 2795 },
+            { name: 'Norway', value: 4891 },
+            { name: 'Sweden', value: 18284 },
+            { name: 'Russia', value: 18643 },
+            { name: 'China', value: 6355 }
+          ]
+        }    
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in May/June 2020' },
+      series: [
+        {
+          name: 'May/June 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 287187 },
+            { name: 'United States', value: 18888 },
+            { name: 'Australia', value: 114548 },
+            { name: 'Canada', value: 148625 },
+            { name: 'Singapore', value: 8688 },
+            { name: 'Mexico', value: 72324 },
+            { name: 'Brazil', value: 256799 },
+            { name: 'France', value: 167236 },
+            { name: 'Netherlands', value: 56370 },
+            { name: 'Germany', value: 116640 },
+            { name: 'Finland', value: 4084 },
+            { name: 'Norway', value: 6088 },
+            { name: 'Sweden', value: 25600 },
+            { name: 'Russia', value: 67816 },
+            { name: 'China', value: 6725 }
+          ]
+        }   
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in July 2020' },
+      series: [
+        {
+          name: 'July 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 242975 },
+            { name: 'United States', value: 17564 },
+            { name: 'Australia', value: 94683 },
+            { name: 'Canada', value: 119416 },
+            { name: 'Singapore', value: 7675 },
+            { name: 'Mexico', value: 65583 },
+            { name: 'Brazil', value: 235126 },
+            { name: 'France', value: 118584 },
+            { name: 'Netherlands', value: 45787 },
+            { name: 'Germany', value: 93086 },
+            { name: 'Finland', value: 3640 },
+            { name: 'Norway', value: 5061 },
+            { name: 'Sweden', value: 21906 },
+            { name: 'Russia', value: 76062 },
+            { name: 'China', value: 9072 }
+          ]
+        } 
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in August 2020' },
+      series: [
+        {
+          name: ' August 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 265159 },
+            { name: 'United States', value: 16492 },
+            { name: 'Australia', value: 16492 },
+            { name: 'Canada', value: 16492 },
+            { name: 'Singapore', value: 7596 },
+            { name: 'Mexico', value: 67395 },
+            { name: 'Brazil', value: 230718 },
+            { name: 'France', value: 127041 },
+            { name: 'Netherlands', value: 44823 },
+            { name: 'Germany', value: 91436 },
+            { name: 'Finland', value: 3878 },
+            { name: 'Norway', value: 5612 },
+            { name: 'Sweden', value: 22866 },
+            { name: 'Russia', value: 73498 },
+            { name: 'China', value: 8532 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in September 2020' },
+      series: [
+        {
+          name: 'September 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 305164 },
+            { name: 'United States', value: 23927 },
+            { name: 'Australia', value: 139697 },
+            { name: 'Canada', value: 157607 },
+            { name: 'Singapore', value: 9088 },
+            { name: 'Mexico', value: 92109 },
+            { name: 'Brazil', value: 339250 },
+            { name: 'France', value: 151438 },
+            { name: 'Netherlands', value: 53462 },
+            { name: 'Germany', value: 103289 },
+            { name: 'Finland', value: 4795 },
+            { name: 'Norway', value: 6751 },
+            { name: 'Sweden', value: 24568 },
+            { name: 'Russia', value: 122898 },
+            { name: 'China', value: 15805 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in October 2020' },
+      series: [
+        {
+          name: 'October 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 291522 },
+            { name: 'United States', value: 21294 },
+            { name: 'Australia', value: 119039 },
+            { name: 'Canada', value: 190229 },
+            { name: 'Singapore', value: 8534 },
+            { name: 'Mexico', value: 84890 },
+            { name: 'Brazil', value: 260497 },
+            { name: 'France', value: 144389 },
+            { name: 'Netherlands', value: 49456 },
+            { name: 'Germany', value: 96933 },
+            { name: 'Finland', value: 4521 },
+            { name: 'Norway', value: 6611 },
+            { name: 'Sweden', value: 22453 },
+            { name: 'Russia', value: 127879 },
+            { name: 'China', value: 15637 }
+          ]
+        }   
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in November/December 2020' },
+      series: [
+        {
+          name: 'November/December 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 262276 },
+            { name: 'United States', value: 17901 },
+            { name: 'Australia', value: 104131 },
+            { name: 'Canada', value: 198179 },
+            { name: 'Singapore', value: 8401 },
+            { name: 'Mexico', value: 77873 },
+            { name: 'Brazil', value: 247725 },
+            { name: 'France', value: 146564 },
+            { name: 'Netherlands', value: 44585 },
+            { name: 'Germany', value: 99362 },
+            { name: 'Finland', value: 3961 },
+            { name: 'Norway', value: 6776 },
+            { name: 'Sweden', value: 23249 },
+            { name: 'Russia', value: 134775 },
+            { name: 'China', value: 13274 }
+          ]
+        } 
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in January 2021' },
+      series: [
+        {
+          name: 'January 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 389844 },
+            { name: 'United States', value: 27311 },
+            { name: 'Australia', value: 155240 },
+            { name: 'Canada', value: 256354 },
+            { name: 'Singapore', value: 11027 },
+            { name: 'Mexico', value: 107785 },
+            { name: 'Brazil', value: 358104 },
+            { name: 'France', value: 195013 },
+            { name: 'Netherlands', value: 63437 },
+            { name: 'Germany', value: 132916 },
+            { name: 'Finland', value: 5736 },
+            { name: 'Norway', value: 9391 },
+            { name: 'Sweden', value: 32680 },
+            { name: 'Russia', value: 180582 },
+            { name: 'China', value: 11200 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in February/March 2021' },
+      series: [
+        {
+          name: 'February/March 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 290193 },
+            { name: 'United States', value: 20440 },
+            { name: 'Australia', value: 116339 },
+            { name: 'Canada', value: 194128 },
+            { name: 'Singapore', value: 10388 },
+            { name: 'Mexico', value: 99778 },
+            { name: 'Brazil', value: 299259 },
+            { name: 'France', value: 168113 },
+            { name: 'Netherlands', value: 48921 },
+            { name: 'Germany', value: 112317 },
+            { name: 'Finland', value: 5607 },
+            { name: 'Norway', value: 9649 },
+            { name: 'Sweden', value: 27703 },
+            { name: 'Russia', value: 148962 },
+            { name: 'China', value: 11475 }
+          ]
+        }
+      ]
+    },  
+
+    {      
+      title: { text: 'Attentions on COVID-19 in April 2021' },
+      series: [
+        {
+          name: 'April 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 358300 },
+            { name: 'United States', value: 25337 },
+            { name: 'Australia', value: 138457 },
+            { name: 'Canada', value: 220594 },
+            { name: 'Singapore', value: 9582 },
+            { name: 'Mexico', value: 101540 },
+            { name: 'Brazil', value: 377760 },
+            { name: 'France', value: 193704 },
+            { name: 'Netherlands', value: 60771 },
+            { name: 'Germany', value: 124708 },
+            { name: 'Finland', value: 6266 },
+            { name: 'Norway', value: 10724 },
+            { name: 'Sweden', value: 34107 },
+            { name: 'Russia', value: 132059 },
+            { name: 'China', value: 9055 }
+          ]
+        }
+      ]
+    },  
+    
+    {      
+      title: { text: 'Attentions on COVID-19 in May 2021' },
+      series: [
+        {
+          name: 'May 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 271304 },
+            { name: 'United States', value: 17614 },
+            { name: 'Australia', value: 103308 },
+            { name: 'Canada', value: 193231 },
+            { name: 'Singapore', value: 8043 },
+            { name: 'Mexico', value: 84065 },
+            { name: 'Brazil', value: 305700 },
+            { name: 'France', value: 153430 },
+            { name: 'Netherlands', value: 42460 },
+            { name: 'Germany', value: 104380 },
+            { name: 'Finland', value: 5201 },
+            { name: 'Norway', value: 8978 },
+            { name: 'Sweden', value: 25643 },
+            { name: 'Russia', value: 108983 },
+            { name: 'China', value: 7840 }
+          ]
+        }
+      ]
+    },  
+
+    {      
+      title: { text: 'Attentions on COVID-19 in June 2021' },
+      series: [
+        {
+          name: 'June 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 351907 },
+            { name: 'United States', value: 17258 },
+            { name: 'Australia', value: 95605 },
+            { name: 'Canada', value: 179881 },
+            { name: 'Singapore', value: 9857 },
+            { name: 'Mexico', value: 75743 },
+            { name: 'Brazil', value: 301684 },
+            { name: 'France', value: 147639 },
+            { name: 'Netherlands', value: 43207 },
+            { name: 'Germany', value: 95170 },
+            { name: 'Finland', value: 4495 },
+            { name: 'Norway', value: 7476 },
+            { name: 'Sweden', value: 23292 },
+            { name: 'Russia', value: 112743 },
+            { name: 'China', value: 7435 }
+          ]
+        }
+      ]
+    }, 
+
+    {      
+      title: { text: 'Attentions on COVID-19 in July/August 2021' },
+      series: [
+        {
+          name: 'July/August 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 409722 },
+            { name: 'United States', value: 24806 },
+            { name: 'Australia', value: 144714 },
+            { name: 'Canada', value: 199321 },
+            { name: 'Singapore', value: 13415 },
+            { name: 'Mexico', value: 86494 },
+            { name: 'Brazil', value: 372930 },
+            { name: 'France', value: 177744 },
+            { name: 'Netherlands', value: 60009 },
+            { name: 'Germany', value: 124009 },
+            { name: 'Finland', value: 5942 },
+            { name: 'Norway', value: 9604 },
+            { name: 'Sweden', value: 32732 },
+            { name: 'Russia', value: 146636 },
+            { name: 'China', value: 8136 }
+          ]
+        }
+      ]
+    }, 
+
+    {      
+      title: { text: 'Attentions on COVID-19 in September 2021' },
+      series: [
+        {
+          name: 'September 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 313837 },
+            { name: 'United States', value: 22635 },
+            { name: 'Australia', value: 135738 },
+            { name: 'Canada', value: 187479 },
+            { name: 'Singapore', value: 12287 },
+            { name: 'Mexico', value: 88889 },
+            { name: 'Brazil', value: 336123 },
+            { name: 'France', value: 177968 },
+            { name: 'Netherlands', value: 50094 },
+            { name: 'Germany', value: 114975 },
+            { name: 'Finland', value: 7202 },
+            { name: 'Norway', value: 11835 },
+            { name: 'Sweden', value: 32237 },
+            { name: 'Russia', value: 132468 },
+            { name: 'China', value: 9688 }
+          ]
+        }
+      ]
+    }, 
+
+    {      
+      title: { text: 'Attentions on COVID-19 in October 2021' },
+      series: [
+        {
+          name: 'October 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 367085 },
+            { name: 'United States', value: 25745 },
+            { name: 'Australia', value: 160187 },
+            { name: 'Canada', value: 186869 },
+            { name: 'Singapore', value: 11511 },
+            { name: 'Mexico', value: 87360 },
+            { name: 'Brazil', value: 398650 },
+            { name: 'France', value: 175817 },
+            { name: 'Netherlands', value: 57684 },
+            { name: 'Germany', value: 122497 },
+            { name: 'Finland', value: 6453 },
+            { name: 'Norway', value: 9760 },
+            { name: 'Sweden', value: 32073 },
+            { name: 'Russia', value: 134223 },
+            { name: 'China', value: 8026 }
+          ]
+        }
+      ]
+    }, 
+
+    {      
+      title: { text: 'Attentions on COVID-19 in November/December 2021' },
+      series: [
+  
+        {
+          name: 'November/December 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 239402 },
+            { name: 'United States', value: 17753 },
+            { name: 'Australia', value: 113578 },
+            { name: 'Canada', value: 134249 },
+            { name: 'Singapore', value: 7721 },
+            { name: 'Mexico', value: 82482 },
+            { name: 'Brazil', value: 287323 },
+            { name: 'France', value: 133619 },
+            { name: 'Netherlands', value: 36867 },
+            { name: 'Germany', value: 89856 },
+            { name: 'Finland', value: 4225 },
+            { name: 'Norway', value: 6753 },
+            { name: 'Sweden', value: 21573 },
+            { name: 'Russia', value: 117037 },
+            { name: 'China', value: 4085 }
+          ]
+        }
+      ]
+    },
+    
+    {      
+      title: { text: 'Attentions on COVID-19 in January 2022' },
+      series: [
+        {
+          name: 'January 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 327906 },
+            { name: 'United States', value: 23273 },
+            { name: 'Australia', value: 134665 },
+            { name: 'Canada', value: 168991 },
+            { name: 'Singapore', value: 9247 },
+            { name: 'Mexico', value: 103412 },
+            { name: 'Brazil', value: 354140 },
+            { name: 'France', value: 159873 },
+            { name: 'Netherlands', value: 48845 },
+            { name: 'Germany', value: 112736 },
+            { name: 'Finland', value: 4987 },
+            { name: 'Norway', value: 8035 },
+            { name: 'Sweden', value: 30933 },
+            { name: 'Russia', value: 130343 },
+            { name: 'China', value: 6912 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in May 2022' },
+      series: [
+        {
+          name: 'May 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 343174 },
+            { name: 'United States', value: 28279 },
+            { name: 'Australia', value: 159968 },
+            { name: 'Canada', value: 178274 },
+            { name: 'Singapore', value: 10469 },
+            { name: 'Mexico', value: 105873 },
+            { name: 'Brazil', value: 418365 },
+            { name: 'France', value: 165856 },
+            { name: 'Netherlands', value: 53830 },
+            { name: 'Germany', value: 123882 },
+            { name: 'Finland', value: 6232 },
+            { name: 'Norway', value: 10442 },
+            { name: 'Sweden', value: 32105 },
+            { name: 'Russia', value: 125002 },
+            { name: 'China', value: 5551 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in June/July 2022' },
+      series: [
+        {
+          name: 'June/July 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 306099 },
+            { name: 'United States', value: 24302 },
+            { name: 'Australia', value: 133660 },
+            { name: 'Canada', value: 137442 },
+            { name: 'Singapore', value: 8648 },
+            { name: 'Mexico', value: 85686 },
+            { name: 'Brazil', value: 347780 },
+            { name: 'France', value: 149862 },
+            { name: 'Netherlands', value: 46996 },
+            { name: 'Germany', value: 105389 },
+            { name: 'Finland', value: 5300 },
+            { name: 'Norway', value: 7683 },
+            { name: 'Sweden', value: 25399 },
+            { name: 'Russia', value: 98509 },
+            { name: 'China', value: 5882 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in August 2022' },
+      series: [
+        {
+          name: 'August 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 229375 },
+            { name: 'United States', value: 16980 },
+            { name: 'Australia', value: 97497 },
+            { name: 'Canada', value: 106937 },
+            { name: 'Singapore', value: 6316 },
+            { name: 'Mexico', value: 86991 },
+            { name: 'Brazil', value: 321536 },
+            { name: 'France', value: 118816 },
+            { name: 'Netherlands', value: 37009 },
+            { name: 'Germany', value: 82726 },
+            { name: 'Finland', value: 3907 },
+            { name: 'Norway', value: 5413 },
+            { name: 'Sweden', value: 25354 },
+            { name: 'Russia', value: 87275 },
+            { name: 'China', value: 4148 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in September/October 2022' },
+      series: [
+        {
+          name: 'September/October 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 70222 },
+            { name: 'United States', value: 21355 },
+            { name: 'Australia', value: 36285 },
+            { name: 'Canada', value: 137780 },
+            { name: 'Singapore', value: 9136 },
+            { name: 'Mexico', value: 53506 },
+            { name: 'Brazil', value: 139674 },
+            { name: 'France', value: 148826 },
+            { name: 'Netherlands', value: 50115 },
+            { name: 'Germany', value: 113829 },
+            { name: 'Finland', value: 5123 },
+            { name: 'Norway', value: 7527 },
+            { name: 'Sweden', value: 27842 },
+            { name: 'Russia', value: 98143 },
+            { name: 'China', value: 6091 }
+          ]
+        }
+      ]
+    },
+
+  ]
+};
+
+  myChart.setOption(option);
+});
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>

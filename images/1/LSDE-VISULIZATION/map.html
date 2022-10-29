@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 90%; margin: 0">
+  <div id="container" style="height: 90%"></div>
+
+  <script type="text/javascript" src="dist/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map -->
+  <!-- <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    var ROOT_PATH = 'https://echarts.apache.org/examples';
+    var option;
+
+    myChart.showLoading();
+$.get('dist/world.json', function (usaJson) {
+  myChart.hideLoading();
+  echarts.registerMap('world', usaJson, {
+    Alaska: {
+      left: -131,
+      top: 25,
+      width: 15
+    },
+    Hawaii: {
+      left: -110,
+      top: 28,
+      width: 5
+    },
+    'Puerto Rico': {
+      left: -76,
+      top: 26,
+      width: 2
+    }
+  });
+  
+option = {
+  baseOption: {
+    timeline: {
+      axisType: 'category',
+      // realtime: false,
+      // loop: false,
+      autoPlay: true,
+      // currentIndex: 2,
+      playInterval: 1000,
+      left: 'center',
+      // controlStyle: {
+      //     position: 'left'
+      // },
+      data: [
+        'February 2020',
+        'March/April 2020',
+        'July 2020',
+        'August 2020',
+        'September 2020',
+        'October 2020',
+        'November/December 2020',
+        'January 2021',
+        'February/March 2021',
+        'April 2021',
+        'May 2021',
+        'June 2021',
+        'July/August 2021',
+        'September 2021',
+        'October 2021',
+        'November/December 2021',
+        'January 2022',
+        'May 2022',
+        'June/July 2022',
+        'August 2022',
+        'September/October 2022'
+      ],
+      // label: {
+      //   formatter: function (s) {
+      //     return new Date(s).getFullYear();
+      //   }
+      // }
+    },
+    title: {
+
+    },
+    
+    // xAxis: [
+    //   {
+    //     type: 'category',
+    //     axisLabel: { interval: 0 },
+    //     date: [],
+    //     splitLine: { show: false }
+    //   }
+    // ],
+    // yAxis: [
+    //   {
+    //     type: 'value',
+    //     name: '',
+    //     max: 53500
+    //   }
+    // ],
+    series: [
+      { name: 'World map', type: 'map' },
+    ],
+    tooltip: {
+        trigger: 'item',
+        showDelay: 0,
+        transitionDuration: 0.2
+      },
+      visualMap: {
+        left: 'right',
+        min: 1000,
+        max: 500000,
+        inRange: {
+          color: [
+            '#313695',
+            '#4575b4',
+            '#74add1',
+            '#abd9e9',
+            '#e0f3f8',
+            '#ffffbf',
+            '#fee090',
+            '#fdae61',
+            '#f46d43',
+            '#d73027',
+            '#a50026'
+          ]
+        },
+        text: ['High', 'Low'],
+        calculable: true
+      },
+      // toolbox: {
+      //   show: true,
+      //   //orient: 'vertical',
+      //   left: 'left',
+      //   top: 'top',
+      //   // feature: {
+      //   //   dataView: { readOnly: false },
+      //   //   restore: {},
+      //   //   saveAsImage: {}
+      //   // }
+      // },
+  },
+  options: [
+    {      
+      title: { text: 'Attentions on COVID-19 in February 2020 ' },
+      series: [
+      {
+          name: 'February 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 31449 },
+            { name: 'United States', value: 2758 },
+            { name: 'Australia', value: 15044 },
+            { name: 'Canada', value: 11116 },
+            { name: 'Singapore', value: 2282 }
+          ]
+        }     
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in March/April 2020 ' },
+      series: [
+        {
+          name: ' March/April 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 192758 },
+            { name: 'United States', value: 14948 },
+            { name: 'Australia', value: 71571 },
+            { name: 'Canada', value: 78889 },
+            { name: 'Singapore', value: 5463 }
+          ]
+        }    
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in May/June 2020' },
+      series: [
+        {
+          name: 'May/June 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 287187 },
+            { name: 'United States', value: 18888 },
+            { name: 'Australia', value: 114548 },
+            { name: 'Canada', value: 148625 },
+            { name: 'Singapore', value: 8688 }
+          ]
+        }   
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in July 2020' },
+      series: [
+        {
+          name: 'July 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 242975 },
+            { name: 'United States', value: 17564 },
+            { name: 'Australia', value: 94683 },
+            { name: 'Canada', value: 119416 },
+            { name: 'Singapore', value: 7675 }
+          ]
+        } 
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in August 2020' },
+      series: [
+        {
+          name: ' August 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 265159 },
+            { name: 'United States', value: 16492 },
+            { name: 'Australia', value: 16492 },
+            { name: 'Canada', value: 16492 },
+            { name: 'Singapore', value: 7596 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in September 2020' },
+      series: [
+        {
+          name: 'September 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 305164 },
+            { name: 'United States', value: 23927 },
+            { name: 'Australia', value: 139697 },
+            { name: 'Canada', value: 157607 },
+            { name: 'Singapore', value: 9088 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in October 2020' },
+      series: [
+        {
+          name: 'October 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 291522 },
+            { name: 'United States', value: 21294 },
+            { name: 'Australia', value: 119039 },
+            { name: 'Canada', value: 190229 },
+            { name: 'Singapore', value: 8534 }
+          ]
+        }   
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in November/December 2020' },
+      series: [
+        {
+          name: 'November/December 2020',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 262276 },
+            { name: 'United States', value: 17901 },
+            { name: 'Australia', value: 104131 },
+            { name: 'Canada', value: 198179 },
+            { name: 'Singapore', value: 8401 }
+          ]
+        } 
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in January 2021' },
+      series: [
+        {
+          name: 'January 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 389844 },
+            { name: 'United States', value: 27311 },
+            { name: 'Australia', value: 155240 },
+            { name: 'Canada', value: 256354 },
+            { name: 'Singapore', value: 11027 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in February/March 2021' },
+      series: [
+        {
+          name: 'February/March 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 290193 },
+            { name: 'United States', value: 20440 },
+            { name: 'Australia', value: 116339 },
+            { name: 'Canada', value: 194128 },
+            { name: 'Singapore', value: 10388 }
+          ]
+        }
+      ]
+    },  
+
+    {      
+      title: { text: 'Attentions on COVID-19 in April 2021' },
+      series: [
+        {
+          name: 'April 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 358300 },
+            { name: 'United States', value: 25337 },
+            { name: 'Australia', value: 138457 },
+            { name: 'Canada', value: 220594 },
+            { name: 'Singapore', value: 9582 }
+          ]
+        }
+      ]
+    },  
+    
+    {      
+      title: { text: 'Attentions on COVID-19 in May 2021' },
+      series: [
+        {
+          name: 'May 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 271304 },
+            { name: 'United States', value: 17614 },
+            { name: 'Australia', value: 103308 },
+            { name: 'Canada', value: 193231 },
+            { name: 'Singapore', value: 8043 }
+          ]
+        }
+      ]
+    },  
+
+    {      
+      title: { text: 'Attentions on COVID-19 in June 2021' },
+      series: [
+        {
+          name: 'June 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 351907 },
+            { name: 'United States', value: 17258 },
+            { name: 'Australia', value: 95605 },
+            { name: 'Canada', value: 179881 },
+            { name: 'Singapore', value: 9857 }
+          ]
+        }
+      ]
+    }, 
+
+    {      
+      title: { text: 'Attentions on COVID-19 in July/August 2021' },
+      series: [
+        {
+          name: 'July/August 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 409722 },
+            { name: 'United States', value: 24806 },
+            { name: 'Australia', value: 144714 },
+            { name: 'Canada', value: 199321 },
+            { name: 'Singapore', value: 13415 }
+          ]
+        }
+      ]
+    }, 
+
+    {      
+      title: { text: 'Attentions on COVID-19 in September 2021' },
+      series: [
+        {
+          name: 'September 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 313837 },
+            { name: 'United States', value: 22635 },
+            { name: 'Australia', value: 135738 },
+            { name: 'Canada', value: 187479 },
+            { name: 'Singapore', value: 12287 }
+          ]
+        }
+      ]
+    }, 
+
+    {      
+      title: { text: 'Attentions on COVID-19 in October 2021' },
+      series: [
+        {
+          name: 'October 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 367085 },
+            { name: 'United States', value: 25745 },
+            { name: 'Australia', value: 160187 },
+            { name: 'Canada', value: 186869 },
+            { name: 'Singapore', value: 11511 }
+          ]
+        }
+      ]
+    }, 
+
+    {      
+      title: { text: 'Attentions on COVID-19 in November/December 2021' },
+      series: [
+  
+        {
+          name: 'November/December 2021',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 239402 },
+            { name: 'United States', value: 17753 },
+            { name: 'Australia', value: 113578 },
+            { name: 'Canada', value: 134249 },
+            { name: 'Singapore', value: 7721 }
+          ]
+        }
+      ]
+    },
+    
+    {      
+      title: { text: 'Attentions on COVID-19 in January 2022' },
+      series: [
+        {
+          name: 'January 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 327906 },
+            { name: 'United States', value: 23273 },
+            { name: 'Australia', value: 134665 },
+            { name: 'Canada', value: 168991 },
+            { name: 'Singapore', value: 9247 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in May 2022' },
+      series: [
+        {
+          name: 'May 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 343174 },
+            { name: 'United States', value: 28279 },
+            { name: 'Australia', value: 159968 },
+            { name: 'Canada', value: 178274 },
+            { name: 'Singapore', value: 10469 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in June/July 2022' },
+      series: [
+        {
+          name: 'June/July 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 306099 },
+            { name: 'United States', value: 24302 },
+            { name: 'Australia', value: 133660 },
+            { name: 'Canada', value: 137442 },
+            { name: 'Singapore', value: 8648 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in August 2022' },
+      series: [
+        {
+          name: 'August 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 229375 },
+            { name: 'United States', value: 16980 },
+            { name: 'Australia', value: 97497 },
+            { name: 'Canada', value: 106937 },
+            { name: 'Singapore', value: 6316 }
+          ]
+        }
+      ]
+    },
+
+    {      
+      title: { text: 'Attentions on COVID-19 in September/October 2022' },
+      series: [
+        {
+          name: 'September/October 2022',
+          type: 'map',
+          roam: true,
+          map: 'world',
+          emphasis: {
+            label: {
+              show: true
+            }
+          },
+          data: [
+            { name: 'United Kingdom', value: 70222 },
+            { name: 'United States', value: 21355 },
+            { name: 'Australia', value: 36285 },
+            { name: 'Canada', value: 137780 },
+            { name: 'Singapore', value: 9136 }
+          ]
+        }
+      ]
+    },
+
+  ]
+};
+
+  myChart.setOption(option);
+});
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>

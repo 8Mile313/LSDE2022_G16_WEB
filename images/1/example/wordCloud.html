@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+        <!-- <script src="../../echarts/dist/echarts.js"></script> -->
+        <script src="../dist/echarts-wordcloud.js"></script>
+        <script src="../keywords.js"></script>
+        <!-- <script src='../urls.js'></script> -->
+        <!-- <script src='https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.js'></script> -->
+    </head>
+    <body>
+        <style>
+            html, body, #main {
+                width: 99%;
+                height: 90%;
+                margin: 10;
+            }
+        </style>
+        <div id="main"></div>
+        <script>
+            // var dom = document.getElementById('main');
+            // var chart = echarts.init(dom, null, {
+            // renderer: 'canvas',
+            // useDirtyRect: false
+            // });
+            var chart = echarts.init(document.getElementById('main'));
+
+            var ecConfig = echarts.config;
+            // var map;
+            chart.on('click', eConsole)
+
+            function eConsole(param) {
+                if (typeof param.seriesIndex != 'undefined') {
+                    window.location.href = param.data.url;
+                    window.open(param.data.url);
+                }
+            }
+
+            var option = {
+                baseOption: {
+                    tooltip: {
+                            trigger: 'item',
+                            showDelay: 0,
+                            transitionDuration: 0
+                    },
+
+                    timeline: {
+                    axisType: 'category',
+                    // realtime: false,
+                    // loop: false,
+                    autoPlay: true,
+                    // currentIndex: 2,
+                    playInterval: 2000,
+                    left: 'center',
+                    symbol: 'circle',
+                    symbolSize: 12, 
+                    // controlStyle: {
+                    //     position: 'left'
+                    // },
+                    data: [
+                        'February 2020',
+                        'March/April 2020',
+                        'July 2020',
+                        'August 2020',
+                        'September 2020',
+                        'October 2020',
+                        'November/December 2020',
+                        'January 2021',
+                        'February/March 2021',
+                        'April 2021',
+                        'May 2021',
+                        'June 2021',
+                        'July/August 2021',
+                        'September 2021',
+                        'October 2021',
+                        'November/December 2021',
+                        'January 2022',
+                        'May 2022',
+                        'June/July 2022',
+                        'August 2022',
+                        'September/October 2022'
+                    ],
+                    // label: {
+                    //   formatter: function (s) {
+                    //     return new Date(s).getFullYear();
+                    //   }
+                    // }
+                    },
+                    title: {
+                        subtext: 'Data is from Common Crawl'
+                    },
+                    
+
+                },
+ 
+                series: [
+                    { name: 'Word Cloud', type: 'wordCloud' },
+                ],
+                
+                options: [
+                    {
+                        title: { text: 'Word Cloud of February 2020 ' },
+                        // roam: true,
+                        gridSize: 10,
+                        sizeRange: [500, 600],
+                        rotationRange: [-20, 20],
+                        shape: 'circle',
+                        // width: '70%',
+                        height: 800,
+                        drawOutOfBound: true,
+                        textStyle: {
+                            color: function () {
+                                return 'rgb(' + [
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160)
+                                ].join(',') + ')';
+                            }
+                        },
+                        emphasis: {
+                            // textStyle: {
+                            //     shadowBlur: 10,
+                            //     shadowColor: '#333'
+                            // },
+                            label: {
+                                show: true
+                            }
+                        },  
+
+                        series: [ {
+                            name: 'Ranking Score',
+                            type: 'wordCloud',
+                            data: Key2010
+                        } ]
+                    },
+
+                    // {
+                    //     title: { text: 'Word Cloud of March/April 2020 ' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2016
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of May/June 2020 ' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2024
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of July 2020 ' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2029
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of August 2020 ' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2034
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of September 2020 ' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2040
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of October 2020 ' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2045
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of November/December 2020 ' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2050
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of January 2021' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2104
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of February/March 2021' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2110
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of April 2021' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2117
+                    //     } ]
+                    // },
+
+
+                    // {
+                    //     title: { text: 'Word Cloud of May 2021' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2121
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of June 2021' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2125
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of July/August 2021' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2131
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of September 2021' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2139
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of October 2021' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2143
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of November/December 2021' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2149
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of January 2022' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2205
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of May 2022' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2221
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of June/July 2022' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2227
+                    //     } ]
+                    // },
+
+                    // {
+                    //     title: { text: 'Word Cloud of August 2022' },
+                    //     series: [ {
+                    //         name: 'Ranking Score',
+                    //         type: 'wordCloud',      
+                    //         data: Key2233
+                    //     } ]
+                    // }              
+                    
+                ]
+            };
+
+            chart.setOption(option);
+
+            window.onresize = chart.resize;
+        </script>
+    </body>
+</html>
